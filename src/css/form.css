@@ -1,0 +1,26 @@
+.form {
+  display: flex;
+  align-items: center;
+  max-width: 360px;
+  margin: 32px auto;
+  gap: 8px;
+}
+
+.form input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid #808080;
+  outline: none;
+}
+
+.form button {
+  display: inline-block;
+  min-width: 91px;
+  min-height: 40px;
+  margin: 8px auto;
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  background-color: #4e75ff;
+}

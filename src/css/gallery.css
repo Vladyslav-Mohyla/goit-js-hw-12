@@ -1,0 +1,19 @@
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-img-engagement {
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid;
+}
+
+.text-img-engagement p {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
