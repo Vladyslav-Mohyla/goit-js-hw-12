@@ -4,9 +4,11 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const galleryList = document.querySelector('.gallery');
 const loader = document.querySelector('.loader');
+export const loadMoreBtn = document.querySelector('.loader-btn');
 const lightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt' });
 
 export function createGallery(images) {
+  if (!galleryList) return;
   const markup = images
     .map(
       ({
@@ -31,7 +33,7 @@ export function createGallery(images) {
     )
     .join('');
   galleryList.insertAdjacentHTML('beforeend', markup);
-  lightbox.refresh();
+  if (lightbox) lightbox.refresh();
 }
 
 //  повинна очищати вміст контейнера галереї
@@ -42,10 +44,21 @@ export function clearGallery() {
 // Повинна додавати клас для відображення лоадера
 
 export function showLoader() {
+  if (!loader) return;
   loader.classList.remove('hidden');
 }
 
-//  повинна прибирати клас для відображення лоадера
 export function hideLoader() {
+  if (!loader) return;
   loader.classList.add('hidden');
+}
+
+export function showLoadMore() {
+  if (!loadMoreBtn) return;
+  loadMoreBtn.classList.remove('hidden');
+}
+
+export function hideLoadMore() {
+  if (!loadMoreBtn) return;
+  loadMoreBtn.classList.add('hidden');
 }
