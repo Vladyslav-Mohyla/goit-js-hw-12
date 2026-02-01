@@ -45,12 +45,18 @@ export function clearGallery() {
 
 export function showLoader() {
   if (!loader) return;
-  loader.classList.remove('hidden');
+  loader.classList.remove('hidden', 'is-hidden');
+  loader.style.display = '';
 }
 
 export function hideLoader() {
   if (!loader) return;
-  loader.classList.add('hidden');
+  loader.classList.add('hidden', 'is-hidden');
+  loader.style.display = 'none';
+}
+
+if (loader) {
+  hideLoader();
 }
 
 export function showLoadMore() {

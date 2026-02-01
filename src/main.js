@@ -1,6 +1,6 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
-import { getImagesByQuery } from './js/pixabay-api'; // импорт функции запроса на Pixabay
+import { getImagesByQuery } from './js/pixabay-api'; // імпорт функції запиту на Pixabay
 import {
   clearGallery,
   createGallery,
@@ -10,6 +10,9 @@ import {
   hideLoadMore,
   loadMoreBtn,
 } from './js/render-functions';
+
+// при старті гарантуємо, що лоадер схований
+hideLoader();
 
 const form = document.querySelector('.form');
 const firstCard = document.querySelector('.gallery li');
@@ -46,11 +49,16 @@ async function onLoadBtn() {
     createGallery(data.hits);
 
     // плавна прокрутка вниз на дві висоти карточки після додавання нових елементів
-    const firstCard = document.querySelector('.gallery li');
-    if (firstCard) {
-      const { height: cardHeight } = firstCard.getBoundingClientRect();
-      window.scrollBy({ top: cardHeight * 2, behavior: 'smooth' });
-    }
+    requestAnimationFrame(() => {
+      const items = document.querySelectorAll('.gallery li');
+      // індекс першої з щойно доданих карточок
+      const firstNewIndex = items.length - data.hits.length;
+      const firstNewCard = items[firstNewIndex] || items[0];
+      if (firstNewCard) {
+        const { height: cardHeight } = firstNewCard.getBoundingClientRect();
+        window.scrollBy({ top: cardHeight * 2, behavior: 'smooth' });
+      }
+    });
 
     const loaded = page * perPage;
     if (loaded < totalHits) {
@@ -77,7 +85,10 @@ async function onFormSubmit(event) {
   const searchValue = event.target.elements['search-text'].value.trim();
 
   if (!searchValue) {
-    alert('Введіть пошукове значення');
+    iziToast.info({
+      message: 'Введіть пошукове значення',
+      position: 'topRight',
+    });
     return;
   }
 
